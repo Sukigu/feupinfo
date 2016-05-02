@@ -1,4 +1,7 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
+
+var port = process.env.PORT || 8080;
 
 app.get('/', function (req, res) {
   if (req.query['hub.verify_token'] === 't0Iv74RLdyS0pHpGDaI27Kf4Dv213w8d') {
@@ -8,6 +11,6 @@ app.get('/', function (req, res) {
   }
 });
 
-app.listen(80, function () {
-  console.log('Example app listening on port 80!');
+app.listen(port, function () {
+  console.log('Now listening on port ' + port + '...');
 });
