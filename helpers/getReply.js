@@ -4,14 +4,14 @@ var request = require('request'),
 
 var getFood = function(callback) {
 	request.get({
-		url: 'https://sigarra.up.pt/sasup/pt/web_base.gera_pagina?P_pagina=265689'/*,
-		encoding: null*/
+		url: 'https://sigarra.up.pt/sasup/pt/web_base.gera_pagina?P_pagina=265689',
+		encoding: null
 	}, function(error, response, body) {
 		if (error || response.statusCode != 200) {
 			return 'No food for you today.';
 		}
 		
-		var $ = cheerio.load(/*iconv.decode(new Buffer(body), 'iso-8859-1')*/ body);
+		var $ = cheerio.load(iconv.decode(new Buffer(body), 'iso-8859-1'));
 		
 		var food = $('#cn-eng').children('p').first().text();
 		
