@@ -8,16 +8,17 @@ var getFood = function(callback) {
 		encoding: null
 	}, function(error, response, body) {
 		if (error || response.statusCode != 200) {
-			return 'No food for you today.';
+			callback('Erro ao procurar a ementa.');
 		}
-		
-		var $ = cheerio.load(iconv.decode(new Buffer(body), 'iso-8859-1'));
-		
-		var food = $('#cn-eng').children('p').first().text();
-		
-		console.log(food);
-		
-		callback(food);
+		else {
+			var $ = cheerio.load(iconv.decode(new Buffer(body), 'iso-8859-1'));
+			
+			var food = $('#cn-eng').children('p').first().text();
+			
+			console.log(food);
+			
+			callback(food);
+		}
 	});
 }
 
