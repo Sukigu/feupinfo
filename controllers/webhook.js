@@ -1,6 +1,6 @@
 var express = require('express'),
 	router = express.Router(),
-	writeReply = require('../helpers/writeReply'),
+	getReply = require('../helpers/getReply'),
 	sendFbMessage = require('../helpers/sendFbMessage');	
 
 router.get('/', function(req, res) {
@@ -20,7 +20,7 @@ router.post('/', function(req, res) {
 		
 		if (event.message && event.message.text) {
 			text = event.message.text;
-			reply = writeReply(text);
+			reply = getReply(text);
 			sendFbMessage(sender, reply);
 		}
 	}
