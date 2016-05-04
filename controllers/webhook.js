@@ -20,8 +20,9 @@ router.post('/', function(req, res) {
 		
 		if (event.message && event.message.text) {
 			text = event.message.text;
-			reply = getReply(text);
-			sendFbMessage(sender, reply);
+			getReply(text, function(reply) {
+				sendFbMessage(sender, reply);
+			});
 		}
 	}
 	
