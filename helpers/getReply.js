@@ -10,23 +10,20 @@ var getFood = function(date, callback) {
 		if (error || response.statusCode != 200) {
 			return callback('Erro ao procurar a ementa.');
 		}
-		else {
-			var $ = cheerio.load(iconv.decode(new Buffer(body), 'iso-8859-1'));
+		
+		var $ = cheerio.load(iconv.decode(new Buffer(body), 'iso-8859-1'));
+		
+		var currentElement = $('#cn-eng').children().first().next(); // First day of the week under "Cantina de Engenharia"
 			
-			var currentElement = $('#cn-eng').children().first();
-			
-			if (currentElement.next()) {
-				currentElement = currentElement.next();
-				
-				do {
-					if (currentElement.children('.date').text().trim() == date) {
-						return callback(currentElement.next().text().trim());
-					}
-				} while (currentElement.next().next())
+		while (currentElement.length != 0) {
+			if (currentElement.children('.date').text().trim() == date) { 
+				return callback(currentElement.next().text().trim());
 			}
+			
+			currentElement = currentElement.next().next(); // Next day of the week
 		}
 		
-		callback('Desculpa, mas não consegui encontrar informações para esse dia!');
+		return callback('Desculpa, mas não consegui encontrar informações para esse dia!');
 	});
 }
 
