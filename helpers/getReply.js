@@ -1,8 +1,13 @@
+'use strict';
 var request = require('request'),
 	cheerio = require('cheerio'),
 	iconv = require('iconv-lite');
 
-var getFood = function(date, callback) {
+var getFood = function(datetime, callback) {
+	var date = datetime.substring(0, 10),
+		dateParts = date.split('-'),
+		date = dateParts[2] + '.' + dateParts[1] + '.' + dateParts[0];
+	
 	request.get({
 		url: 'https://sigarra.up.pt/sasup/pt/web_base.gera_pagina?P_pagina=265689',
 		encoding: null
