@@ -76,7 +76,7 @@ const actions = {
 		console.log(error.message);
 	},
 	['get-menu'](sessionId, context, cb) {
-		getReply(ontext.date, function(menu) {
+		getReply(context.date, function(menu) {
 			context.menu = menu;
 			delete context.date;
 			cb(context);
