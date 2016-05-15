@@ -1,7 +1,7 @@
 'use strict';
 var request = require('request');
 
-module.exports = function(recipientId, message) {
+module.exports = function(recipientId, message, cb) {
 	var messageData = {
 		text: message
 	};
@@ -15,10 +15,8 @@ module.exports = function(recipientId, message) {
 			message: messageData,
 		}
 	}, function(error, response, body) {
-		if (error) {
-			console.log('Error sending message: ', error);
-		} else if (response.body.error) {
-			console.log('Error: ', response.body.error);
+		if (cb) {
+			cb(error || response.body.error, body);
 		}
 	});
 }

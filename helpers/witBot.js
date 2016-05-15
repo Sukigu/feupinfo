@@ -69,21 +69,13 @@ const actions = {
 		const intent = firstEntityValue(entities, 'intent'),
 			datetime = firstEntityValue(entities, 'datetime');
 		
-		if (intent) {
-			context.intent = intent;
-		}
-		if (datetime) {
-			context.date = datetime;
-		}
+		if (intent) context.intent = intent;
+		if (datetime) context.date = datetime;
 		
 		cb(context);
 	},
 	error(sessionId, context, error) {
 		console.log(error.message);
-	},
-	deleteContext(sessionId, context, cb) {
-		context = {};
-		cb(context);
 	},
 	getMenu(sessionId, context, cb) {
 		if (context.intent === 'get_menu') {

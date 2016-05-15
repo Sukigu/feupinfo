@@ -39,7 +39,7 @@ router.post('/', function(req, res) {
 						} else {
 							// Our bot did everything it has to do
 							// Now it's waiting for further messages to proceed
-							console.log('Waiting for futher messages.');
+							console.log('Waiting for futher messages.\n');
 							
 							// Based on the session state, you might want to reset the session
 							// This depends heavily on the business logic of your bot
