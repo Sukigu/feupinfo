@@ -3,7 +3,7 @@ var request = require('request'),
 	cheerio = require('cheerio'),
 	iconv = require('iconv-lite');
 
-var getFood = function(datetime, callback) {
+var getMenu = function(datetime, callback) {
 	var date = datetime.substring(0, 10),
 		dateParts = date.split('-'),
 		date = dateParts[2] + '.' + dateParts[1] + '.' + dateParts[0];
@@ -33,7 +33,7 @@ var getFood = function(datetime, callback) {
 }
 
 module.exports = function(message, reply) {
-	getFood(message, function(food) {
-		reply(food);
+	getMenu(message, function(menu) {
+		reply(menu);
 	});
 }

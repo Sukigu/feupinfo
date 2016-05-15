@@ -66,21 +66,37 @@ const actions = {
 		}
 	},
 	merge(sessionId, context, entities, message, cb) {
-		const datetime = firstEntityValue(entities, 'datetime');
+		const intent = firstEntityValue(entities, 'intent'),
+			datetime = firstEntityValue(entities, 'datetime');
+		
+		if (intent) {
+			context.intent = intent;
+		}
 		if (datetime) {
 			context.date = datetime;
 		}
+		
 		cb(context);
 	},
 	error(sessionId, context, error) {
 		console.log(error.message);
 	},
-	['get-menu'](sessionId, context, cb) {
-		getReply(context.date, function(menu) {
-			context.menu = menu;
-			delete context.date;
+	deleteContext(sessionId, context, cb) {
+		context = {};
+		cb(context);
+	},
+	getMenu(sessionId, context, cb) {
+		if (context.intent === 'get_menu') {
+			getReply(context.date, function(menu) {
+				context.menu = menu;
+				context.done = 'done';
+				cb(context);
+			});
+		}
+		else {
+			context.done = 'done';
 			cb(context);
-		});
+		}
 	}
 };
 
